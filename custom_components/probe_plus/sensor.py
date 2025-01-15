@@ -75,10 +75,10 @@ async def async_setup_entry(
     """Set up the scale sensors."""
     _LOGGER.debug("Setting up scale sensors for entry: %s", entry.entry_id)
     address = entry.unique_id
-    coordinator: ProbePlusDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
+    coordinator: ProbePlusDataUpdateCoordinator = entry.runtime_data
     entities = []
     entities += [
-        ProbeSensor(entry.title, address, coordinator, desc)
+        ProbeSensor(entry.title, address, entry.runtime_data, desc)
         for desc in SENSOR_DESCRIPTIONS
     ]
     async_add_entities(entities)

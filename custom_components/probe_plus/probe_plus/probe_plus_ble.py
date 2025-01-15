@@ -18,22 +18,28 @@ class ProbePlusDevice(ParserBase):
     """Represent a ProbePlus device."""
 
     _notification_callback = None
-    _address: str = ""
+    _device: BLEDevice = None
     _client: BleakClient = None
     _connect_lock = asyncio.Lock()
 
     def __init__(
             self,
-            address: str,
+            device: BLEDevice,
             notification_callback: Callable[[ProbePlusData], None],
             unavailble_callback
     ):
         """Init Probe Plus Device."""
-        self._address = address
+        self._device = device
         self._notification_callback = notification_callback
         self._scanner = create_adv_receiver(self._advertisement_callback)
         self._notification_callback = notification_callback
         self._unavailable_callback = unavailble_callback
+
+    @property
+    def _address(self) -> str | None:
+        if self._device:
+            return self._device.address
+        return None
 
     async def async_start(self) -> None:
         """Start the callbacks."""
@@ -71,6 +77,7 @@ class ProbePlusDevice(ParserBase):
                     self._address,
                     self._unavailable_callback
                 )
+                self._device = ble_device
                 _LOGGER.debug("Connected to probe %s", self._address)
             await self._client.start_notify(
                 "",

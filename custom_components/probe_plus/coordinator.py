@@ -7,6 +7,8 @@ from collections.abc import Callable
 from datetime import date
 import logging
 
+from bleak.backends.device import BLEDevice
+
 from homeassistant.core import callback
 
 from .probe_plus.probe_plus_ble import ProbePlusDevice
@@ -23,17 +25,16 @@ class ProbePlusDataUpdateCoordinator:
     """
 
     _client: ProbePlusDevice = None
+    _device: BLEDevice = None
 
-    body_metrics_enabled: bool = False
-
-    def __init__(self, address: str) -> None:
+    def __init__(self, device: BLEDevice) -> None:
         """Initialize the ProbePlusDataUpdateCoordinator.
 
         Args:
             address (str): The Bluetooth address of the scale.
 
         """
-        self.address = address
+        self._device = device
         self._lock = asyncio.Lock()
         self._listeners: dict[Callable[[], None], Callable[[ProbePlusData], None]] = {}
 
@@ -44,7 +45,7 @@ class ProbePlusDataUpdateCoordinator:
 
         _LOGGER.debug("Initializing new ProbePlusDevice client")
         self._client = ProbePlusDevice(
-            self.address, self.update_listeners, None
+            self._device, self.update_listeners, None
         )
         await self._client.async_start()
 
@@ -57,7 +58,7 @@ class ProbePlusDataUpdateCoordinator:
 
         """
         _LOGGER.debug(
-            "Starting ProbePlusDataUpdateCoordinator for address: %s", self.address
+            "Starting ProbePlusDataUpdateCoordinator for address: %s", self._device.address
         )
         async with self._lock:
             await self._async_start()
@@ -67,7 +68,7 @@ class ProbePlusDataUpdateCoordinator:
     async def async_stop(self) -> None:
         """Stop the coordinator and clean up resources."""
         _LOGGER.debug(
-            "Stopping ProbePlusDataUpdateCoordinator for address: %s", self.address
+            "Stopping ProbePlusDataUpdateCoordinator for address: %s", self._device.address
         )
         async with self._lock:
             if self._client:
