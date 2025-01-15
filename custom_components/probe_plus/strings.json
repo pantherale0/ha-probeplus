@@ -1,0 +1,48 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+        "bluetooth_confirm": {
+            "description": "Configure device options"
+        },
+        "user": {
+            "data": {
+                "address": "[%key:common::config_flow::data::device%]"
+            },
+            "description": "[%key:component::bluetooth::config::step::user::description%]"
+        }
+    },
+    "error": {
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "unknown": "[%key:common::config_flow::error::unknown%]"
+    },
+    "abort": {
+      "no_devices_found": "[%key:common::config_flow::abort::no_devices_found%]",
+      "already_in_progress": "[%key:common::config_flow::abort::already_in_progress%]",
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]",
+      "reconfigure_successful": "[%key:common::config_flow::abort::reconfigure_successful%]"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "probe_temperature": {
+        "name": "Probe Temperature"
+      },
+      "probe_battery": {
+        "name": "Probe Battery"
+      },
+      "probe_rssi": {
+        "name": "Probe RSSI"
+      },
+      "probe_voltage": {
+        "name": "Probe Voltage"
+      },
+      "relay_battery": {
+        "name": "Relay Battery"
+      },
+      "relay_voltage": {
+        "name": "Relay Voltage"
+      }
+    }
+  }
+}
