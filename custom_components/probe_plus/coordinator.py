@@ -1,4 +1,4 @@
-"""Coordinator for the etekcity_fitness_scale_ble integration."""
+"""Coordinator for the probe_plus integration."""
 
 from __future__ import annotations
 
@@ -16,9 +16,9 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class ProbePlusDataUpdateCoordinator:
-    """Coordinator to manage data updates for a scale device.
+    """Coordinator to manage data updates for a probe device.
 
-    This class handles the communication with the Etekcity Smart Fitness Scale
+    This class handles the communication with Probe Plus devices
     and coordinates updates to the Home Assistant entities.
     """
 

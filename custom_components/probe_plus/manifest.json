@@ -4,8 +4,8 @@
   "bluetooth": [
     {
       "connectable": true,
-      "manufacturer_id": 1744,
-      "local_name": "FM*"
+      "manufacturer_id": 36606,
+      "local_name": "FM2*"
     }
   ],
   "codeowners": [

@@ -38,14 +38,14 @@ class ProbePlusDevice(ParserBase):
     async def async_start(self) -> None:
         """Start the callbacks."""
         _LOGGER.debug(
-            "Starting EtekcitySmartFitnessScale for address: %s", self._address
+            "Starting ProbePlusDevice for address: %s", self._address
         )
         await self._scanner.start()
 
     async def async_stop(self) -> None:
         """Stop the callbacks."""
         _LOGGER.debug(
-            "Stopping EtekcitySmartFitnessScale for address: %s", self._address
+            "Stopping ProbePlusDevice for address: %s", self._address
         )
         await self._scanner.stop()
 

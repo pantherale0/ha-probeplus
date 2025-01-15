@@ -87,7 +87,7 @@ async def async_setup_entry(
 
 
 class ProbeSensor(RestoreSensor):
-    """Base sensor implementation for Etekcity scale measurements."""
+    """Base sensor implementation for Probe Plus sensors."""
 
     _attr_should_poll = False
     _attr_has_entity_name = True
@@ -100,12 +100,12 @@ class ProbeSensor(RestoreSensor):
         coordinator: ProbePlusDataUpdateCoordinator,
         entity_description: SensorEntityDescription,
     ) -> None:
-        """Initialize the scale sensor.
+        """Initialize the sensor.
 
         Args:
             name: The name of the sensor.
-            address: The Bluetooth address of the scale.
-            coordinator: The data update coordinator for the scale.
+            address: The Bluetooth address.
+            coordinator: The data update coordinator.
             entity_description: Description of the sensor entity.
 
         """
@@ -124,7 +124,7 @@ class ProbeSensor(RestoreSensor):
         self._attr_device_info = DeviceInfo(
             connections={(CONNECTION_BLUETOOTH, address)},
             name=name,
-            manufacturer="Etekcity",
+            manufacturer="Probe Plus",
         )
         self._coordinator = coordinator
 
